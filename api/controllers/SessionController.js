@@ -52,7 +52,7 @@ module.exports = {
       if (!user) {
         var noAccountError = {
           name: 'noAccount',
-          message: 'The email address ' + req.param('email') + ' not found.'
+          message: 'The email address not found.'
         };
         // req.session.flash = {
         //   err: 'The email address ' + req.param('email') + ' not found.'
@@ -78,7 +78,10 @@ module.exports = {
               err: 'Invalid username and password combination.'
             }
             console.log(err);
-            return res.status(200).json(err);
+            return res.status(200).json({
+              success : false,
+              message : "Wrong credentials.Please check your email or password."
+            });
           }
 
           req.session.authenticated = true;
