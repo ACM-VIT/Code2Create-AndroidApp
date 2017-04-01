@@ -28,6 +28,14 @@ module.exports = {
     User.findOne({
       token : req.param('id')
     }, function foundUser(err, user) {
+
+      if(!user){
+        return res.status(200).json({
+          success : false,
+          message : "Sorry,no user found."
+        })
+      }
+
       Team.findOne({
         admin: user.id
       }).then(function (team) {
@@ -136,8 +144,8 @@ module.exports = {
           //
         }
       });
-    })
 
+    })
 
 
   },
