@@ -7,12 +7,8 @@ module.exports = {
     Team.findOne({
       token : req.param('id')
     }).exec(function(err, user) {
-
-
     })
-
   },
-
 
 
   myteam : function(req, res, next) {
@@ -68,16 +64,12 @@ module.exports = {
                 return
               }
 
-
             })
           }
-
-
         }
 
 
         else {
-
 
           Team.find(function foundTeams(err, teams) {
             teams.forEach(function (team) {
