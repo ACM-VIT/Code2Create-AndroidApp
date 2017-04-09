@@ -23,30 +23,54 @@ module.exports.http = {
 
   middleware: {
 
-  /***************************************************************************
+    // logincheck: function (req,res,next) {
+    //
+    //
+    //   console.log(req.param('id'));
+    //
+    //   User.findOne({
+    //       token: req.param('id')
+    //     }, function foundUser(err, user) {
+    //     if(user){
+    //       console.log(user);
+    //       next();
+    //     }
+    //     else{
+    //       return res.status(200).json({
+    //         message : "Please login",
+    //         success : false
+    //       })
+    //     }
+    //
+    //   });
+    // },
+
+
+    /***************************************************************************
   *                                                                          *
   * The order in which middleware should be run for HTTP request. (the Sails *
   * router is invoked by the "router" middleware below.)                     *
   *                                                                          *
   ***************************************************************************/
 
-    // order: [
-    //   'startRequestTimer',
-    //   'cookieParser',
-    //   'session',
-    //   'myRequestLogger',
-    //   'bodyParser',
-    //   'handleBodyParserError',
-    //   'compress',
-    //   'methodOverride',
-    //   'poweredBy',
-    //   '$custom',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    //   '404',
-    //   '500'
-    // ],
+    order: [
+      'startRequestTimer',
+      'logincheck',
+      'cookieParser',
+      'session',
+      'myRequestLogger',
+      'bodyParser',
+      'handleBodyParserError',
+      'compress',
+      'methodOverride',
+      'poweredBy',
+      '$custom',
+      'router',
+      'www',
+      'favicon',
+      '404',
+      '500'
+    ],
 
   /****************************************************************************
   *                                                                           *
