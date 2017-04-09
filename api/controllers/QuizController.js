@@ -123,9 +123,12 @@ module.exports = {
   update : function(req,res,next){
 
     var lastQuestion = req.param('lastQ');
+    var marks = req.param('marks');
 
     var update_params_given = {
-      lastQ: lastQuestion
+      lastQ: lastQuestion,
+      marks : marks
+
     };
 
 
@@ -228,6 +231,7 @@ module.exports = {
         if(Math.abs(milliSec - quiz.startTime)> 120000) {
           quiz.finishTime = milliSec
         }
+
         quiz.marks = req.param('marks');
         timeDifference = quiz.finishTime - quiz.startTime;
         console.log(timeDifference);
