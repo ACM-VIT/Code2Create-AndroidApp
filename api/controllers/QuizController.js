@@ -2,6 +2,7 @@
 
 module.exports = {
 
+
   create : function(req, res, next) {
 
     var us_startTime = req.param('startTime');
@@ -60,7 +61,7 @@ module.exports = {
           });
         }
 
-        if(abs(milliSec - quiz.startTime)> 120000){
+        if(Math.abs(milliSec - quiz.startTime)> 120000){
           quiz.startTime = milliSec
         }
         quiz.started = true;
@@ -224,7 +225,7 @@ module.exports = {
 
         quiz.finishTime = req.param('finishTime');
 
-        if(abs(milliSec - quiz.startTime)> 120000) {
+        if(Math.abs(milliSec - quiz.startTime)> 120000) {
           quiz.finishTime = milliSec
         }
         quiz.marks = req.param('marks');

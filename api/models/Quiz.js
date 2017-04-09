@@ -15,7 +15,8 @@ module.exports = {
 
     isLive : {
       type : 'boolean',
-      required : false
+      required : false,
+      defaultsTo : true
     },
 
     started : {
