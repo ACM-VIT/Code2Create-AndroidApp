@@ -21,12 +21,16 @@ module.exports = {
 
     started : {
       type : 'boolean',
-      required : false
+      required : false,
+      defaultsTo : false
+
     },
 
     finished : {
       type : 'boolean',
-      required : false
+      required : false,
+      defaultsTo : false
+
     },
 
     qArray : {

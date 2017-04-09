@@ -110,8 +110,15 @@ module.exports = {
             message: "Cannot change last question"
           })
         }
+        if(!quiz){
+          return res.status(200).json({
+            started : false,
+            finished : false
+          });
+        }
 
         return res.status(200).json({
+          finished : quiz.finished,
           quiz : quiz
         });
 
@@ -177,6 +184,8 @@ module.exports = {
 
     var timeDifference = 0;
 
+    var finishTime = req.param('finishTime');
+
     /////time calculation
 
     function formatDate(date) {
@@ -225,8 +234,9 @@ module.exports = {
           })
         }
 
+        quiz.finishTime = finishTime;
 
-        quiz.finishTime = req.param('finishTime');
+
 
         if(Math.abs(milliSec - quiz.startTime)> 120000) {
           quiz.finishTime = milliSec
