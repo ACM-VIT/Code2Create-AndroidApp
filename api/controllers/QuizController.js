@@ -114,13 +114,17 @@ module.exports = {
           return res.status(200).json({
             started : false,
             finished : false,
-            isLive : true
+            isLive : true,
+            success: true
+
           });
         }
 
         return res.status(200).json({
           finished : quiz.finished,
-          quiz : quiz
+          quiz : quiz,
+          success: true
+
         });
 
 
@@ -257,7 +261,8 @@ module.exports = {
           function (err) {
             if(err){
               return res.status(200).json({
-              message : "Something went wrong!"
+                success: false,
+                message : "Something went wrong!"
               })
             }
             return res.status(200).json({
