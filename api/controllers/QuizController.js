@@ -60,6 +60,9 @@ module.exports = {
           });
         }
 
+        if(abs(milliSec - quiz.startTime)> 120000){
+          quiz.startTime = milliSec
+        }
         quiz.started = true;
         quiz.qArray = temp;
         for (var i = 1; i < us_qArray.length ; i += 2) {
@@ -170,6 +173,32 @@ module.exports = {
 
     var timeDifference = 0;
 
+    /////time calculation
+
+    function formatDate(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var milliseconds = date.getMilliseconds();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes;
+
+      console.log(strTime);
+      totalTime = hours*60*60*1000 + minutes*60*1000 + milliseconds;
+      return totalTime;
+
+      //return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+    }
+
+    var d = new Date();
+    var milliSec = formatDate(d);
+    console.log("Finish time is");
+    console.log(milliSec);
+
+    /////end
+
 
     User.findOne({
       token: req.param('id')
@@ -192,7 +221,12 @@ module.exports = {
           })
         }
 
+
         quiz.finishTime = req.param('finishTime');
+
+        if(abs(milliSec - quiz.startTime)> 120000) {
+          quiz.finishTime = milliSec
+        }
         quiz.marks = req.param('marks');
         timeDifference = quiz.finishTime - quiz.startTime;
         console.log(timeDifference);
