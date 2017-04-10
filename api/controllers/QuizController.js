@@ -65,9 +65,10 @@ module.exports = {
           quiz.startTime = milliSec
         }
         quiz.started = true;
-        quiz.qArray = temp;
-        for (var i = 1; i < us_qArray.length ; i += 2) {
-          qarray.push(parseInt(us_qArray[i]));
+        for (var i = 1; i < us_qArray.length ; i++) {
+          if(parseInt(us_qArray[i]>-1)) {
+            qarray.push(parseInt(us_qArray[i]));
+          }
         }
         console.log(qarray[0]);
         quiz.qArray = qarray;
