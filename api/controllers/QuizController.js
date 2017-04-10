@@ -6,7 +6,8 @@ module.exports = {
   create : function(req, res, next) {
 
     var us_startTime = req.param('startTime');
-    var us_qArray = req.param('qArray');
+    var us_qArray = [];
+    us_qArray = req.param('qArray');
     var temp = [];
     var qarray = [];
 
@@ -66,14 +67,17 @@ module.exports = {
         }
         quiz.started = true;
 
+        // console.log(us_qArray);
+
         console.log(us_qArray);
 
-        for (var i = 1; i < us_qArray.length ; i+=2) {
-          
+        for (var i = 0; i < us_qArray.length ; i++) {
+          console.log(parseInt(us_qArray[i]));
+          if(parseInt(us_qArray[i])) {
             qarray.push(parseInt(us_qArray[i]));
-
+          }
         }
-        console.log(qarray[0]);
+        // console.log(qarray[0]);
         quiz.qArray = qarray;
         quiz.lastQ = quiz.qArray[0];
         quiz.userid = user.id;
