@@ -39,7 +39,7 @@ module.exports = {
     },
 
     lastQ : {
-      type : 'string',
+      type : 'integer',
       required : false
     },
 

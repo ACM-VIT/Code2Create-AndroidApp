@@ -67,8 +67,9 @@ module.exports = {
         quiz.started = true;
         quiz.qArray = temp;
         for (var i = 1; i < us_qArray.length ; i += 2) {
-          qarray.push(us_qArray[i]);
+          qarray.push(parseInt(us_qArray[i]));
         }
+        console.log(qarray[0]);
         quiz.qArray = qarray;
         quiz.lastQ = quiz.qArray[0];
         quiz.userid = user.id;
@@ -165,6 +166,7 @@ module.exports = {
           })
 
         }
+
         return res.status(200).json({
           success : true,
           message : "Changed last question",
