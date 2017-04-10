@@ -85,7 +85,7 @@ module.exports = {
             return res.status(200).json({
                 success: true,
                 message: "Successfully created quiz",
-                quiz: quiz
+
               }
             )
 
@@ -113,7 +113,7 @@ module.exports = {
       }, function foundQuiz(err, quiz) {
         if (err) {
           return res.status(200).json({
-            success: false,
+            success: true,
             message: "Cannot change last question"
           })
         }
@@ -128,8 +128,10 @@ module.exports = {
         }
 
         return res.status(200).json({
-          finished : quiz.finished,
           quiz : quiz,
+          started : quiz.started,
+          finished : quiz.finished,
+          isLive : quiz.isLive,
           success: true
 
         });
