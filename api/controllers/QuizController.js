@@ -67,9 +67,7 @@ module.exports = {
         }
         quiz.started = true;
 
-        // console.log(us_qArray);
 
-        console.log(us_qArray);
 
         for (var i = 0; i < us_qArray.length ; i++) {
           console.log(parseInt(us_qArray[i]));
@@ -164,23 +162,64 @@ module.exports = {
         })
       }
 
-      Quiz.update({
-        userid: user.id
-      }, update_params_given, function quizUpdated(err) {
-        if (err) {
-          return res.status(200).json({
-            success : false,
-            message : "Cannot change last question"
-          })
 
+
+
+      Quiz.findOne({
+        userid : user.id
+        },
+        function foundQuiz(err, quiz){
+        if(err) return next(err);
+        if(!quiz){
+          return res.status(200).json({
+            success : true,
+            message : "No quiz found"
+          })
         }
 
-        return res.status(200).json({
-          success : true,
-          message : "Changed last question",
-        })
+        if(quiz.isLive) {
+
+          if (quiz.lastQ < lastQuestion) {
+            quiz.marks = marks;
+            quiz.lastQ = lastQuestion;
+            quiz.save(function (err) {
+              if (err) {
+                return res.status(200).json({
+                  success: true,
+                  isLive : quiz.isLive,
+                  message: "Cannot change last question"
+                })
+              }
+              return res.status(200).json({
+                success: true,
+                isLive : quiz.isLive,
+                message: "Changed last question"
+              })
+
+            })
+          }
+        }
+
 
       });
+
+      // Quiz.update({
+      //   userid: user.id
+      // }, update_params_given, function quizUpdated(err) {
+      //   if (err) {
+      //     return res.status(200).json({
+      //       success : false,
+      //       message : "Cannot change last question"
+      //     })
+      //
+      //   }
+      //
+      //   return res.status(200).json({
+      //     success : true,
+      //     message : "Changed last question",
+      //   })
+      //
+      // });
     })
 },
 

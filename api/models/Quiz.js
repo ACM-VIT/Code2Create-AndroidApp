@@ -40,7 +40,8 @@ module.exports = {
 
     lastQ : {
       type : 'integer',
-      required : false
+      required : false,
+      defaultsTo : 0
     },
 
     startTime : {
