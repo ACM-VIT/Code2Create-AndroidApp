@@ -316,7 +316,7 @@ module.exports = {
         timeDifference = quiz.finishTime - quiz.startTime;
 
 
-        quiz.score = 1000*((quiz.marks)/timeDifference);
+        quiz.score = 10000000*((quiz.marks)/timeDifference);
         console.log(quiz.score);
         quiz.finished = true;
 
@@ -330,7 +330,7 @@ module.exports = {
             }
             return res.status(200).json({
                 success: true,
-                message: "Successfully created quiz",
+                message: "Successfully finished quiz",
                 quiz: quiz
               }
             )
