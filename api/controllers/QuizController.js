@@ -76,7 +76,7 @@ module.exports = {
         }
         // console.log(qarray[0]);
         quiz.qArray = qarray;
-        quiz.lastQ = quiz.qArray[0];
+        quiz.lastQ = -1;
         quiz.userid = user.id;
 
         quiz.save(
