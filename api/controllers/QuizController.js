@@ -65,7 +65,7 @@ module.exports = {
           //if sm1 changes system time,server time will be taken.
         }
         quiz.started = true;
-
+        quiz.marks = 0;
 
 
         for (var i = 0; i < us_qArray.length ; i++) {
