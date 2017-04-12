@@ -119,7 +119,7 @@ module.exports = {
           return res.status(200).json({
             started : false,
             finished : false,
-            isLive : true,
+            isLive : false,
             //-------------changes------------//
             success: true
 
