@@ -45,15 +45,15 @@ module.exports = {
 
 
 
-  index : function(req, res, next){
-
-    User.find(function foundUsers(err, users){
-      if(err) return next(err);
-      return res.status(200).json({
-        users : users
-      })
-    });
-  },
+  // index : function(req, res, next){
+  //
+  //   User.find(function foundUsers(err, users){
+  //     if(err) return next(err);
+  //     return res.status(200).json({
+  //       users : users
+  //     })
+  //   });
+  // },
   // //this function is used for returning all the users in form of array.
   //
 
