@@ -26,6 +26,40 @@ module.exports = {
     },
 
 
+    breakfast: {
+      type : "integer",
+      defaultsTo : 1
+    },
+
+    lunch : {
+      type : "integer",
+      defaultsTo : 1
+
+    },
+
+    dinner : {
+      type : "integer",
+      defaultsTo : 1
+
+    },
+
+    snacks : {
+      type : "integer",
+      defaultsTo : 1
+
+    },
+
+    coffee : {
+      type : "integer",
+      defaultsTo : 1
+    },
+
+    registered : {
+      type : "boolean",
+      defaultsTo : false
+    },
+
+
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;

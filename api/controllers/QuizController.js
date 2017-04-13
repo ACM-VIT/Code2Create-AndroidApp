@@ -1,4 +1,5 @@
 
+var isLive = false;
 
 module.exports = {
 
@@ -41,8 +42,6 @@ module.exports = {
       startTime: us_startTime,
       // qArray: us_qArray
     };
-    var i = 0;
-
 
     User.findOne({
       token: req.param('id')
@@ -64,9 +63,10 @@ module.exports = {
 
         if(Math.abs(milliSec - quiz.startTime)> 120000){
           quiz.startTime = milliSec
+          //if sm1 changes system time,server time will be taken.
         }
         quiz.started = true;
-
+        quiz.marks = 0;
 
 
         for (var i = 0; i < us_qArray.length ; i++) {
@@ -77,15 +77,14 @@ module.exports = {
         }
         // console.log(qarray[0]);
         quiz.qArray = qarray;
-        quiz.lastQ = quiz.qArray[0];
+        quiz.lastQ = -1;
         quiz.userid = user.id;
 
         quiz.save(
           function (err) {
             return res.status(200).json({
                 success: true,
-                message: "Successfully created quiz",
-
+                message: "Successfully created quiz"
               }
             )
 
@@ -121,7 +120,8 @@ module.exports = {
           return res.status(200).json({
             started : false,
             finished : false,
-            isLive : true,
+            isLive : false,
+            //-------------changes------------//
             success: true
 
           });
@@ -131,12 +131,9 @@ module.exports = {
           quiz : quiz,
           started : quiz.started,
           finished : quiz.finished,
-          isLive : quiz.isLive,
+          isLive : isLive,
           success: true
-
         });
-
-
       })
     })
 
@@ -171,7 +168,12 @@ module.exports = {
         userid : user.id
         },
         function foundQuiz(err, quiz){
-        if(err) return next(err);
+        if(err) {
+          return res.status(200).json({
+            success : true,
+            message : "Something went wrong,cannot update."
+          })
+        }
         if(!quiz){
           return res.status(200).json({
             success : true,
@@ -179,7 +181,7 @@ module.exports = {
           })
         }
 
-        if(quiz.isLive) {
+        if(isLive) {
 
           if (quiz.lastQ < lastQuestion) {
             quiz.marks = marks;
@@ -188,19 +190,28 @@ module.exports = {
               if (err) {
                 return res.status(200).json({
                   success: true,
-                  isLive : quiz.isLive,
+                  isLive : isLive,
                   message: "Cannot change last question"
                 })
               }
               return res.status(200).json({
                 success: true,
-                isLive : quiz.isLive,
-                message: "Changed last question"
+                isLive : isLive,
+                message: "Successfully changed last question"
               })
 
             })
           }
+          else{
+            return res.status(200).json({
+              success: true,
+              isLive : isLive,
+              message: "Already updated last question."
+            })
+
+          }
         }
+
 
 
       });
@@ -225,15 +236,15 @@ module.exports = {
     })
 },
 
-  index : function(req, res, next){
-
-    Quiz.find(function foundQuizs(err, quizs){
-      if(err) return next(err);
-      return res.status(200).json({
-        quizs : quizs
-      })
-    });
-  },
+  // index : function(req, res, next){
+  //
+  //   Quiz.find(function foundQuizs(err, quizs){
+  //     if(err) return next(err);
+  //     return res.status(200).json({
+  //       quizs : quizs
+  //     })
+  //   });
+  // },
 
   finishQuiz : function (req, res, next) {
 
@@ -258,13 +269,10 @@ module.exports = {
       totalTime = hours*60*60*1000 + minutes*60*1000 + milliseconds;
       return totalTime;
 
-      //return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
     }
 
     var d = new Date();
     var milliSec = formatDate(d);
-    console.log("Finish time is");
-    console.log(milliSec);
 
     /////end
 
@@ -290,6 +298,13 @@ module.exports = {
           })
         }
 
+        if(!quiz){
+          return res.status(200).json({
+            success : true,
+            message : "No quiz found"
+          })
+        }
+
         quiz.finishTime = finishTime;
 
 
@@ -300,11 +315,9 @@ module.exports = {
 
         quiz.marks = req.param('marks');
         timeDifference = quiz.finishTime - quiz.startTime;
-        console.log(timeDifference);
-        console.log(quiz.marks);
 
 
-        quiz.score = timeDifference/(quiz.marks);
+        quiz.score = 10000000*((quiz.marks)/timeDifference);
         console.log(quiz.score);
         quiz.finished = true;
 
@@ -318,7 +331,7 @@ module.exports = {
             }
             return res.status(200).json({
                 success: true,
-                message: "Successfully created quiz",
+                message: "Successfully finished quiz",
                 quiz: quiz
               }
             )
@@ -327,19 +340,7 @@ module.exports = {
         );
       });
     })
-  },
-
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 };
 
