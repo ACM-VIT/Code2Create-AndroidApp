@@ -186,7 +186,7 @@ module.exports = {
           user.save(function (err) {
             return res.status(200).json({
               success: true,
-              message: "Successfully redeemed coupon",
+              message: "Successfully reverted coupon",
               user: user
             })
           });
