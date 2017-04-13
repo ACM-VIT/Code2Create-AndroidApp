@@ -83,25 +83,25 @@ module.exports = {
       }
       else{
 
-        // bcrypt.compare(req.param('password'), user.encryptedPassword, function (err, valid) {
+        bcrypt.compare(req.param('password'), user.encryptedPassword, function (err, valid) {
 
-          // if (err) return next(err);
-          //
-          // // If the password from the form doesn't match the password from the database...
-          // if (!valid) {
-          //   var usernamePasswordMismatchError = [{
-          //     name: 'usernamePasswordMismatch',
-          //     message: 'Invalid username and password combination.'
-          //   }]
-          //   req.session.flash = {
-          //     err: 'Invalid username and password combination.'
-          //   }
-          //   console.log(err);
-          //   return res.status(200).json({
-          //     success : false,
-          //     message : "Wrong credentials.Please check your email or password. "
-          //   });
-          // }
+          if (err) return next(err);
+
+          // If the password from the form doesn't match the password from the database...
+          if (!valid) {
+            var usernamePasswordMismatchError = [{
+              name: 'usernamePasswordMismatch',
+              message: 'Invalid username and password combination.'
+            }]
+            req.session.flash = {
+              err: 'Invalid username and password combination.'
+            }
+            console.log(err);
+            return res.status(200).json({
+              success : false,
+              message : "Wrong credentials.Please check your email or password. "
+            });
+          }
 
           req.session.authenticated = true;
           req.session.User = user;
@@ -125,7 +125,7 @@ module.exports = {
             })
           });
 
-        //});
+        });
       }
 
     });
