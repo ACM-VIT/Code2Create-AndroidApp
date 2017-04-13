@@ -14,9 +14,9 @@ module.exports = {
     },
 
     isLive : {
-      type : 'boolean',
+      type : 'integer',
       required : false,
-      defaultsTo : false
+      defaultsTo : 0
     },
 
     started : {

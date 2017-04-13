@@ -1,4 +1,5 @@
 
+var isLive = false;
 
 module.exports = {
 
@@ -130,7 +131,7 @@ module.exports = {
           quiz : quiz,
           started : quiz.started,
           finished : quiz.finished,
-          isLive : quiz.isLive,
+          isLive : isLive,
           success: true
         });
       })
@@ -180,7 +181,7 @@ module.exports = {
           })
         }
 
-        if(quiz.isLive) {
+        if(isLive) {
 
           if (quiz.lastQ < lastQuestion) {
             quiz.marks = marks;
@@ -189,13 +190,13 @@ module.exports = {
               if (err) {
                 return res.status(200).json({
                   success: true,
-                  isLive : quiz.isLive,
+                  isLive : isLive,
                   message: "Cannot change last question"
                 })
               }
               return res.status(200).json({
                 success: true,
-                isLive : quiz.isLive,
+                isLive : isLive,
                 message: "Successfully changed last question"
               })
 
@@ -204,7 +205,7 @@ module.exports = {
           else{
             return res.status(200).json({
               success: true,
-              isLive : quiz.isLive,
+              isLive : isLive,
               message: "Already updated last question."
             })
 
@@ -235,15 +236,15 @@ module.exports = {
     })
 },
 
-  index : function(req, res, next){
-
-    Quiz.find(function foundQuizs(err, quizs){
-      if(err) return next(err);
-      return res.status(200).json({
-        quizs : quizs
-      })
-    });
-  },
+  // index : function(req, res, next){
+  //
+  //   Quiz.find(function foundQuizs(err, quizs){
+  //     if(err) return next(err);
+  //     return res.status(200).json({
+  //       quizs : quizs
+  //     })
+  //   });
+  // },
 
   finishQuiz : function (req, res, next) {
 

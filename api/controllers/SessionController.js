@@ -80,7 +80,7 @@ module.exports = {
             console.log(err);
             return res.status(200).json({
               success : false,
-              message : "Wrong credentials.Please check your email or password."
+              message : "Wrong credentials.Please check your email or password. "
             });
           }
 
