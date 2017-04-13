@@ -10,7 +10,7 @@ module.exports = {
     adminId = req.param('adminId');
 
     User.findOne({
-      token: req.param('id')
+      id: req.param('id')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -112,7 +112,7 @@ module.exports = {
 
 
     User.findOne({
-      token: req.param('id')
+      id: req.param('id')
     }, function foundUser(err, user) {
 
       if (!user) {
