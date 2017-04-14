@@ -131,6 +131,22 @@ module.exports = {
     });
   },
 
+  noOfRegisterations : function (req, res, next) {
+    var count = 0;
+
+    User.find(function foundUsers(err, users){
+      users.forEach(function(user){
+        if(user.registered === true){
+          count = count + 1;
+        }
+      });
+
+      console.log(count);
+    });
+
+  }
+
+
   // show: function(req, res, next) {
   //   User.findOne(req.param('id'), function foundUser(err, user) {
   //     if (err) return next(err);

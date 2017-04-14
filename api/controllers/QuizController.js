@@ -305,39 +305,47 @@ module.exports = {
           })
         }
 
-        quiz.finishTime = finishTime;
+        if(!quiz.finished) {
+
+          quiz.finishTime = finishTime;
 
 
-
-        if(Math.abs(milliSec - quiz.startTime)> 120000) {
-          quiz.finishTime = milliSec
-        }
-
-        quiz.marks = req.param('marks');
-        timeDifference = quiz.finishTime - quiz.startTime;
-
-
-        quiz.score = 10000000*((quiz.marks)/timeDifference);
-        console.log(quiz.score);
-        quiz.finished = true;
-
-        quiz.save(
-          function (err) {
-            if(err){
-              return res.status(200).json({
-                success: false,
-                message : "Something went wrong!"
-              })
-            }
-            return res.status(200).json({
-                success: true,
-                message: "Successfully finished quiz",
-                quiz: quiz
-              }
-            )
-
+          if (Math.abs(milliSec - quiz.startTime) > 120000) {
+            quiz.finishTime = milliSec
           }
-        );
+
+          quiz.marks = req.param('marks');
+          timeDifference = quiz.finishTime - quiz.startTime;
+
+
+          quiz.score = 10000000 * ((quiz.marks) / timeDifference);
+          console.log(quiz.score);
+          quiz.finished = true;
+
+          quiz.save(
+            function (err) {
+              if (err) {
+                return res.status(200).json({
+                  success: false,
+                  message: "Something went wrong!"
+                })
+              }
+              return res.status(200).json({
+                  success: true,
+                  message: "Successfully finished quiz",
+                  quiz: quiz
+                })
+
+            }
+          );
+        }
+        else{
+          return res.status(200).json({
+            success: true,
+            message: "Already finished quiz",
+            quiz: quiz
+          });
+        }
       });
     })
   }
