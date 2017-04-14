@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
 
     userid : {
-      type : 'string'
+      type : 'string',
+      unique : true
     },
 
     isLive : {
