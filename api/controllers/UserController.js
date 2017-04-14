@@ -144,6 +144,18 @@ module.exports = {
       console.log(count);
     });
 
+  },
+
+  redlist : function (req, res, next) {
+
+    Quiz.find(function foundQuizs(err, quizs){
+      Quiz.sort('name ASC');
+
+      return res.json({
+        quizs : quizs
+      })
+    });
+
   }
 
 
