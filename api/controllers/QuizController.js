@@ -71,6 +71,7 @@ module.exports = {
 
             // quiz.startTime = req.param('startTime');
 
+
             if (!quiz.started) {
               console.log("Here is the time");
               console.log(quiz.startTime);
@@ -106,6 +107,7 @@ module.exports = {
                 }
               );
             }
+
             else {
               return res.status(200).json({
                   success: true,
