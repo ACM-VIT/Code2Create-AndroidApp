@@ -148,12 +148,31 @@ module.exports = {
 
   redlist : function (req, res, next) {
 
-    Quiz.find(function foundQuizs(err, quizs){
-      Quiz.sort('name ASC');
+    var temparray = [];
+    var overall = [];
 
-      return res.json({
-        quizs : quizs
-      })
+    Quiz.find(function foundQuizs(err, quizs){
+
+      User.find(function foundUsers(err, users){
+        quizs.forEach(function(quiz) {
+          users.forEach(function(user){
+
+          if (quiz.userid === user.id) {
+            temparray.push(user.name);
+            temparray.push(quiz.score);
+          }
+          });
+          if(temparray.length > 0) {
+            overall.push(temparray);
+          }
+          temparray = [];
+        });
+        return res.json({
+          overall : overall
+        })
+      });
+
+
     });
 
   }

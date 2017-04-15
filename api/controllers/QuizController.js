@@ -274,15 +274,15 @@ module.exports = {
     })
   },
 
-  index : function(req, res, next){
-
-    Quiz.find(function foundQuizs(err, quizs){
-      if(err) return next(err);
-      return res.status(200).json({
-        quizs : quizs
-      })
-    });
-  },
+  // index : function(req, res, next){
+  //
+  //   Quiz.find(function foundQuizs(err, quizs){
+  //     if(err) return next(err);
+  //     return res.status(200).json({
+  //       quizs : quizs
+  //     })
+  //   });
+  // },
 
   finishQuiz : function (req, res, next) {
 
