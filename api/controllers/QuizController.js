@@ -5,7 +5,7 @@
 
 
 
-var isLive = false;
+var isLive = true;
 var moment = require('moment');
 module.exports = {
 
@@ -60,7 +60,7 @@ module.exports = {
       }
       else {
         Quiz.create(req.params.all(), function quizCreated(err, quiz) {
-          
+
             if (err) {
               console.log("Entering into err");
 
@@ -72,7 +72,7 @@ module.exports = {
             // quiz.startTime = req.param('startTime');
 
 
-          else{
+         if(!quiz.started){
 
                 console.log("Here is the time");
                 console.log(quiz.startTime);
@@ -110,14 +110,14 @@ module.exports = {
               }
 
 
-            // else {
-            //   return res.status(200).json({
-            //       success: true,
-            //       message: "Already created quiz"
-            //     }
-            //   )
-            //
-            // }
+            else {
+              return res.status(200).json({
+                  success: true,
+                  message: "Already created quiz"
+                }
+              )
+
+            }
           });
 
       }
