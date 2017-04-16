@@ -130,7 +130,7 @@ module.exports = {
 
 
     User.findOne({
-      token: req.param('id')
+      token: req.param('token')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -185,7 +185,7 @@ module.exports = {
 
 
     User.findOne({
-      token: req.param('id')
+      token: req.param('token')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -317,7 +317,7 @@ module.exports = {
 
 
     User.findOne({
-      token: req.param('id')
+      token: req.param('token')
     }, function foundUser(err, user) {
 
       if (!user) {
