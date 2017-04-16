@@ -40,7 +40,7 @@ module.exports = {
 
   userRegister: function (req, res, next) {
 
-    if (!req.param('email') || !req.param('password')) {
+    if (!req.param('email')) {
       req.session.flash = {
         err: 'You must enter both a username/email and password.'
       };
@@ -130,6 +130,53 @@ module.exports = {
 
     });
   },
+
+  noOfRegisterations : function (req, res, next) {
+    var count = 0;
+
+    User.find(function foundUsers(err, users){
+      users.forEach(function(user){
+        if(user.registered === true){
+          count = count + 1;
+        }
+      });
+
+      console.log(count);
+    });
+
+  },
+
+  redlist : function (req, res, next) {
+
+    var temparray = [];
+    var overall = [];
+
+    Quiz.find(function foundQuizs(err, quizs){
+
+      User.find(function foundUsers(err, users){
+        quizs.forEach(function(quiz) {
+          users.forEach(function(user){
+
+          if (quiz.userid === user.id) {
+            temparray.push(user.name);
+            temparray.push(quiz.score);
+          }
+          });
+          if(temparray.length > 0) {
+            overall.push(temparray);
+          }
+          temparray = [];
+        });
+        return res.json({
+          overall : overall
+        })
+      });
+
+
+    });
+
+  }
+
 
   // show: function(req, res, next) {
   //   User.findOne(req.param('id'), function foundUser(err, user) {

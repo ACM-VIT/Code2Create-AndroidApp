@@ -10,7 +10,7 @@ module.exports = {
     adminId = req.param('adminId');
 
     User.findOne({
-      token: req.param('id')
+      id: req.param('id')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -112,7 +112,7 @@ module.exports = {
 
 
     User.findOne({
-      token: req.param('id')
+      id: req.param('id')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -186,7 +186,7 @@ module.exports = {
           user.save(function (err) {
             return res.status(200).json({
               success: true,
-              message: "Successfully redeemed coupon",
+              message: "Successfully reverted coupon",
               user: user
             })
           });
