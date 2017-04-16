@@ -62,6 +62,30 @@ module.exports = {
       type : 'float'
     }
 
+  },
+
+  beforeCreate: function (values, next) {
+    console.log("Values are");
+    console.log(values);
+    User.findOne({
+      token : values.token
+    }, function foundUser(err, user) {
+      Quiz.findOne({
+        userid: user.uid
+      }, function foundQuiz(err, quiz) {
+        console.log("before create in quiz");
+        console.log(quiz);
+        values = {};
+        if (quiz) {
+          err = true;
+          return next(err);
+        }
+        else {
+          next();
+        }
+
+      });
+    });
   }
 };
 

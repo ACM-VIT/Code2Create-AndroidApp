@@ -42,7 +42,6 @@ module.exports = {
 
     var d = new Date();
     var milliSec = formatDate(d);
-    console.log(milliSec);
     /////end
     var params_needed = {
       startTime: us_startTime,
@@ -50,7 +49,7 @@ module.exports = {
       // qArray: us_qArray
     };
     User.findOne({
-      token: req.param('id')
+      token: req.param('token')
     }, function foundUser(err, user) {
 
       if (!user) {
@@ -60,10 +59,11 @@ module.exports = {
         })
       }
       else {
-
-        if(allow === 0) {
-          Quiz.create(req.params.all(), function quizCreated(err, quiz) {
+        Quiz.create(req.params.all(), function quizCreated(err, quiz) {
+          
             if (err) {
+              console.log("Entering into err");
+
               return res.status(200).json({
                 message: "Quiz already created"
               });
@@ -72,52 +72,54 @@ module.exports = {
             // quiz.startTime = req.param('startTime');
 
 
-            if (!quiz.started) {
-              console.log("Here is the time");
-              console.log(quiz.startTime);
-              console.log(milliSec);
+          else{
 
-              if (Math.abs(milliSec + 1492171235397 - quiz.startTime) > 120000) {
-                quiz.startTime = milliSec + 1492171235397;
-              }
-              quiz.started = true;
-              quiz.marks = 0;
+                console.log("Here is the time");
+                console.log(quiz.startTime);
+                console.log(milliSec);
 
-
-              for (var i = 0; i < us_qArray.length; i++) {
-                if (parseInt(us_qArray[i])) {
-                  qarray.push(parseInt(us_qArray[i]));
+                if (Math.abs(milliSec + 1492171235397 - quiz.startTime) > 120000) {
+                  quiz.startTime = milliSec + 1492171235397;
                 }
-              }
-              quiz.qArray = qarray;
-              quiz.lastQ = -1;
-              quiz.userid = user.id;
+                quiz.started = true;
+                quiz.marks = 0;
 
-              quiz.save(
-                function (err) {
-                  if (err) {
-                    message : "There is error in creating quiz"
+
+                for (var i = 0; i < us_qArray.length; i++) {
+                  if (parseInt(us_qArray[i])) {
+                    qarray.push(parseInt(us_qArray[i]));
                   }
-                  return res.status(200).json({
-                      success: true,
-                      message: "Successfully created quiz"
+                }
+                quiz.qArray = qarray;
+                quiz.lastQ = -1;
+                quiz.userid = user.id;
+
+                quiz.save(
+                  function (err) {
+                    if (err) {
+                      message : "There is error in creating quiz"
                     }
-                  )
+                    return res.status(200).json({
+                        success: true,
+                        message: "Successfully created quiz"
+                      }
+                    )
 
-                }
-              );
-            }
+                  }
+                );
+              }
 
-            else {
-              return res.status(200).json({
-                  success: true,
-                  message: "Already created quiz"
-                }
-              )
 
-            }
+            // else {
+            //   return res.status(200).json({
+            //       success: true,
+            //       message: "Already created quiz"
+            //     }
+            //   )
+            //
+            // }
           });
-        }
+
       }
     });
   },
