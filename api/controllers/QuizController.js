@@ -1,7 +1,3 @@
-// Enteres into create
-// 2017-04-14T17:53:45.492953+00:00 app[web.1]: 21180481
-// 2017-04-14T17:53:45.510844+00:00 app[web.1]: Finally here it is
-// 2017-04-14T17:53:45.525111+00:00 app[web.1]: 01
 
 
 
@@ -256,23 +252,7 @@ module.exports = {
 
         });
 
-      // Quiz.update({
-      //   userid: user.id
-      // }, update_params_given, function quizUpdated(err) {
-      //   if (err) {
-      //     return res.status(200).json({
-      //       success : false,
-      //       message : "Cannot change last question"
-      //     })
-      //
-      //   }
-      //
-      //   return res.status(200).json({
-      //     success : true,
-      //     message : "Changed last question",
-      //   })
-      //
-      // });
+     
     })
   },
 

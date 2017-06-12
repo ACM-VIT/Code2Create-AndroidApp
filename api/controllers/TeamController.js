@@ -122,9 +122,7 @@ module.exports = {
 
             if (count === teams.length) {
 
-              // req.session.flash = {
-              //   err: "You dont have any team."
-              // };
+             
               res.status(200).json({
                 success : false,
                 message : "You dont habe any team"

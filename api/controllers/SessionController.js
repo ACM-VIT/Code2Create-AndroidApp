@@ -73,10 +73,10 @@ module.exports = {
             var usernamePasswordMismatchError = [{
               name: 'usernamePasswordMismatch',
               message: 'Invalid username and password combination.'
-            }]
+            }];
             req.session.flash = {
               err: 'Invalid username and password combination.'
-            }
+            };
             console.log(err);
             return res.status(200).json({
               success : false,
@@ -87,17 +87,15 @@ module.exports = {
           req.session.authenticated = true;
           req.session.User = user;
 
+          user.token = sailsTokenAuth.issueToken(user.id);
+
           return res.status(200).json({
             user : user,
             token : sailsTokenAuth.issueToken(user.id),
             success : true
           })
 
-          // return res.json(
-          //   user: user,
-          //   token : jwToken.issue({id: user.id}
-          //   );
-          // res.redirect('/session/welcome');
+          
         });
       }
 
@@ -105,9 +103,8 @@ module.exports = {
   },
 
   checktoken : function (req, res, next) {
-    temptoken = req.param('id');
     User.findOne({
-      token : req.param('id')
+      id : req.header('id')
     }, function foundUser(err, user) {
       if (!user) {
         console.log("Enters 4");
