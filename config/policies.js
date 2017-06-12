@@ -28,6 +28,18 @@ module.exports.policies = {
 
   // '*': true,
 
+  user:{
+    // 'new' : "flash",
+    // create : "flash",
+    show : 'tokenAuth'
+
+  },
+
+  session : {
+
+    checktoken : 'tokenAuth'
+  }
+
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
